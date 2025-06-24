@@ -3,10 +3,17 @@ import { useState } from 'react'
 const App = () => {
   const [value, setValue] = useState(10)
 
+  const setToValue = (newValue) => () =>{
+    console.log('value now', newValue)
+    setValue(newValue)
+  }
+
   return (
     <div>
       {value}
-      <button onClick={() => console.log('clicked the button')}>reset to zero</button>
+      <button onClick={setToValue(1000)}>thousand</button>
+      <button onClick={setToValue(0)}>zero</button>
+      <button onClick={setToValue(value + 1)}>increment</button>
     </div>
   )
 }
