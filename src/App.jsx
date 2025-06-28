@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import Name from './components/Name'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -15,10 +16,12 @@ const App = () => {
 
   const addPerson = (event) => {
     event.preventDefault()
-    
-    if(persons.some(person => person.name === newName)){
+
+    console.log("in addPerson")
+
+    if (persons.some(person => person.name === newName)) {
       alert(`${newName} is already added to phonebook`)
-      return 
+      return
     }
 
     const personObject = {
@@ -43,34 +46,22 @@ const App = () => {
     setNewNumber(event.target.value)
   }
 
-
-
   return (
     <div>
-      <h2>
-        Phonebook
-      </h2>
-      <form onSubmit={addPerson}>
-        <div>
-          name:
-          <input
-            value={newName}
-            onChange={handleNameChange}
-          />
-          number:
-          <input
-            value= {newNumber}
-            onChange= {handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
-      <h2>Numbers</h2>
+      <h2>Phonebook</h2>
+      <h3>Add a new</h3>
+      <PersonForm
+        addPerson={addPerson}
+        newName={newName}
+        handleNameChange={handleNameChange}
+        newNumber={newNumber}
+        handleNumberChange={handleNumberChange} />
+      <h3>Numbers</h3>
       <ul>
-        {persons.map(person =>
-          <Name key={person.id} name={person.name} number={person.number} />)}
+        <Persons
+          persons={persons}
+        />
+
       </ul>
     </div>
   )
