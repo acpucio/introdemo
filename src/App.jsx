@@ -15,7 +15,7 @@ const App = (props) => {
       id: String(notes.length + 1)
     }
 
-    setNotes(notes.comcat(noteObject))
+    setNotes(notes.concat(noteObject))
     setNewNote('')
   }
 
