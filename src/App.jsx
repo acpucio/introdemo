@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import {nanoid} from 'nanoid'
 
 const App = () => {
   const [persons, setPersons] = useState([])
@@ -10,11 +11,11 @@ const App = () => {
 
   useEffect(()=> {
     console.log('effect')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
+    personService
+      .getAll('http://localhost:3001/persons')
+      .then(initialPersons => {
         console.log('promise fulfilled')
-        setPersons(response.data)
+        setPersons(initialPersons)
       })
     },[])
 
@@ -31,19 +32,25 @@ const App = () => {
     const personObject = {
       name: newName,
       number: newNumber,
-      id: String(persons.length + 1)
+      id: nanoid(4)
     }
 
-    axios
-      .post('http://localhost:3001/persons', personObject)
-      .then(response => {
-        console.log(response)
+    personService
+      .create(personObject)
+      .then(returnedPerson => {
+        console.log(returnedPerson)
+        setPersons(persons.concat(returnedPerson))
+        setNewName('')
+        setNewNumber('')
       })
 
     console.log('name added', event.target)
-    setPersons(persons.concat(personObject))
-    setNewName('')
-    setNewNumber('')
+    
+    
+  }
+
+  const deleteMe = id => {
+    console.log(`delete me.  I'm ${id} `)
   }
 
   const handleNameChange = (event) => {
@@ -70,6 +77,7 @@ const App = () => {
       <ul>
         <Persons
           persons={persons}
+          deleteMe = {() => deleteMe()}
         />
 
       </ul>
