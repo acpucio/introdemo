@@ -5,7 +5,6 @@ import Persons from './components/Persons'
 
 const App = () => {
   const [persons, setPersons] = useState([])
-
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
 
@@ -17,7 +16,7 @@ const App = () => {
         console.log('promise fulfilled')
         setPersons(response.data)
       })
-})
+    },[])
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -34,6 +33,12 @@ const App = () => {
       number: newNumber,
       id: String(persons.length + 1)
     }
+
+    axios
+      .post('http://localhost:3001/persons', personObject)
+      .then(response => {
+        console.log(response)
+      })
 
     console.log('name added', event.target)
     setPersons(persons.concat(personObject))
