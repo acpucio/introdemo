@@ -49,10 +49,6 @@ const App = () => {
     
   }
 
-  const deleteMe = id => {
-    console.log(`delete me.  I'm ${id} `)
-  }
-
   const handleNameChange = (event) => {
     console.log(event.target.value)
     setNewName(event.target.value)
@@ -77,7 +73,6 @@ const App = () => {
       <ul>
         <Persons
           persons={persons}
-          deleteMe = {() => deleteMe()}
         />
 
       </ul>
