@@ -3,7 +3,7 @@
     {
       "id": "1",
       "content": "HTML is easy",
-      "important": true
+      "important": false
     },
     {
       "id": "2",
@@ -63,7 +63,7 @@
     {
       "id": "a709",
       "content": "billy billy",
-      "important": true
+      "important": false
     }
   ]
 }
