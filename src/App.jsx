@@ -3,11 +3,13 @@ import personService from './services/persons'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
 import {nanoid} from 'nanoid'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
+  const [message, setMessage] = useState(null)
 
   useEffect(()=> {
     console.log('effect')
@@ -45,6 +47,13 @@ const App = () => {
       })
 
     console.log('name added', event.target)
+
+    setMessage(
+          `Note '${newName}' has been added`
+        )
+        setTimeout(() => {
+          setMessage(null)
+        }, 5000)
     
     
   }
@@ -62,6 +71,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message = {message}/>
       <h3>Add a new</h3>
       <PersonForm
         addPerson={addPerson}
